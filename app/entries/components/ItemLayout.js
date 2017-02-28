@@ -13,12 +13,11 @@ class ItemLayout extends Component {
     this.state = {
       item: []
     }
-    this.id = location.pathname.split('/').pop();
   }
 
   componentDidMount() {
   axios
-    .get(__dirname + 'item/' + this.id +'/data')
+    .get(__dirname + 'item/' + this.props.params.id +'/data')
     .then(res => this.setState({ item: res.data }))
     .catch(err => console.log(err))
 }
