@@ -14,7 +14,7 @@ class DataStore extends EventEmitter {
     axios
         .get(__dirname + 'data?start=' + start)
         .then(res => {
-          this.data = res.data;
+          Object.assign(this.data, res.data);
           this.data.start = start;
           this.data.limit = limit;
           this.emit('change');
@@ -26,8 +26,8 @@ class DataStore extends EventEmitter {
     axios
         .get(__dirname + 'data?start=' + start + '&limit=' + limit)
         .then(res => {
-          this.data = res.data;
-          this.data.limit = limit;
+          Object.assign(this.data, res.data);
+          this.data.limit = limit || 9;
           this.emit('change');
         })
         .catch(err => console.log(err))
