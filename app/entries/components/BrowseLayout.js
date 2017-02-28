@@ -24,6 +24,10 @@ export default class BrowseLayout extends Component {
     });
   }
 
+  componentWillUnmount() {
+    dataStore.removeAllListeners();
+  }
+
   setFavourite(id){;
     DataActions.setFavourite(id);
   }
