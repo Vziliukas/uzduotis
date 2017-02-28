@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 function Product(props) {
   return (
     <div className="col-md-4">
-    <img src={props.src} className="img-responsive"/>
+    <Link to={"items/" + props.id}><img src={props.src} className="img-responsive"/></Link>
       <div className="row">
         <div className="col-md-6">
           <h3> {props.price} </h3>
