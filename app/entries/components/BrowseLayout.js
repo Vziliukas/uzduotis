@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import Product from './BrowseLayout/Product';
 import dataStore from '../stores/DataStore';
 import * as DataActions from '../actions/DataActions';
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 
 
 export default class BrowseLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {},
+      items: dataStore.getData(),
     };
 
     this.loadMore = this.loadMore.bind(this);
