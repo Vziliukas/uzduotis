@@ -1,7 +1,6 @@
 ##TODO
 
-#Fix favourite button, disappear value after fetching new data from endpoint.
-#Implement routing with browser history
+- Fix favourite button, disappear value after fetching new data from endpoint.
 
 ## 1stdibs.com front-end developer React quiz
 
