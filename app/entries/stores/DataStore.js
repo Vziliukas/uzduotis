@@ -7,6 +7,7 @@ class DataStore extends EventEmitter {
     super();
 
     this.data = {};
+    this.favItems = [];
     this.loadProducts(0, 9);
   }
 
@@ -37,17 +38,41 @@ class DataStore extends EventEmitter {
     return this.data;
   }
 
+  getFavourite() {
+    return this.favItems;
+  }
+
   setFavourite(id) {
-    let items = this.data.items;
-    for (let i=0; i< items.length; i++) {
-        if(items[i].id == id) {
-          if(items[i].favourite) {
-            items[i].favourite = false;
-            this.emit('change');
-          }
-          else items[i].favourite = true;
-          this.emit('change');
-        }
+    let item = this.getFavById(id, this.favItems);
+
+    if (item) {
+      this.setFavState(item);
+      this.emit('change');
+    }
+
+    if (!item) {
+      this.favItems.push({
+        id: id,
+        state: true
+      });
+      this.emit('change');
+    }
+  }
+
+  getFavById(id, arr) {
+    for (let i=0; i<arr.length; i++) {
+      if (arr[i]['id'] == id) {
+        return arr[i];
+      }
+    }
+  }
+
+  setFavState(item) {
+    if (item.state) {
+      item.state = false;
+    }
+    else if (!item.state) {
+      item.state = true;
     }
   }
 

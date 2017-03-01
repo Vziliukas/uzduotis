@@ -11,6 +11,7 @@ export default class BrowseLayout extends Component {
     super(props);
     this.state = {
       items: dataStore.getData(),
+      favItems: dataStore.getFavourite()
     };
 
     this.loadMore = this.loadMore.bind(this);
@@ -20,6 +21,7 @@ export default class BrowseLayout extends Component {
     dataStore.on('change', () => {
       this.setState({
         items : dataStore.getData(),
+        favItems: dataStore.getFavourite()
       });
     });
   }
@@ -28,8 +30,19 @@ export default class BrowseLayout extends Component {
     dataStore.removeAllListeners();
   }
 
-  setFavourite(id){;
+  setFavourite(id) {
     DataActions.setFavourite(id);
+  }
+
+  getFavState(id) {
+    let items = this.state.favItems;
+    if (items) {
+      for (let i=0; i< items.length; i++) {
+        if (items[i]['id'] == id) {
+          return items[i]['state'];
+        }
+      }
+    }
   }
 
   loadMore() {
@@ -44,7 +57,7 @@ export default class BrowseLayout extends Component {
       let Prod = [];
       let ProductComponents = product.items.map((item) => {
         return (
-                <Product key={item.id} id={item.id} setFavourite={this.setFavourite.bind(this, item.id)} liked={item.favourite} src={item.image} price={(item.price && item.price.amounts) ? item.price.amounts['EUR'] : "Price Upon Request"}/>
+                <Product key={item.id} id={item.id} setFavourite={this.setFavourite.bind(this, item.id)} liked={this.getFavState.bind(this, item.id)} src={item.image} price={(item.price && item.price.amounts) ? item.price.amounts['EUR'] : "Price Upon Request"}/>
         )
       }, this);
 
